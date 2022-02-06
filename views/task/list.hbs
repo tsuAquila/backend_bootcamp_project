@@ -1,6 +1,7 @@
 <style>
   .list { margin-left: 500px; margin-top: 150px;} th, td { width:150px;
   text-align:center; padding:5px;} h3 {margin-left: 100px; text-decoration:
+  underline;} a {text-decoration: none; color: red;} th {text-decoration:
   underline;}
 </style>
 <div class="list">
@@ -17,8 +18,16 @@
         <tr>
           <td>{{this.taskName}}</td>
           <td>{{this.taskDesc}}</td>
+          <td>
+            <a href="">Edit</a>
+            <a
+              href="/task/delete/{{this._id}}"
+              onclick="return confirm('Are you sure you want to delete this Task?')"
+            >Delete</a>
+          </td>
         </tr>
       {{/each}}
     </tbody>
   </table>
+  <a href="/task/">Go Back</a>
 </div>

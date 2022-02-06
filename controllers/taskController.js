@@ -38,4 +38,28 @@ router.get("/list", (req, res) => {
   });
 });
 
+//to delete
+router.get('/delete/:id', (req,res) => {
+  task.findByIdAndRemove(req.params.id, (err) => {
+    if (!err) {
+      res.redirect('/task/list')
+    }
+    else {
+      console.log('Error in deletion! ' + err)
+    }
+  })
+})
+
+//to edit
+router.get('edit/:id', (req,res) => {
+  task.findByIdAndUpdate(req.params.id, (err) => {
+    if (!err) {
+      res.redirect('/task/list/edit')
+    }
+    else {
+      console.log('Error while updating! ' + err)
+    }
+  })
+})
+
 module.exports = router;
