@@ -35,23 +35,21 @@ router.post("list/edit", (req, res) => {
 });
 // function to update task
 function editTask(req, res) {
-  task.findByIdAndUpdate(req.params.id, (err) => {
-    if (!err) {
-      res.render("/task/edit");
-      var taska = task(req.params.id);
-      taska.taskName = req.body.edtaskName;
-      taska.taskDesc = req.body.edtaskDesc;
-      task.save((err, docs) => {
-        if (!err) {
-          res.redirect("task/list");
-        } else {
-          console.log("Error while saving! " + err);
-        }
-      });
-    } else {
-      console.log("Error while updating! " + err);
+  console.log(req.params.id);
+  var task_id = req.params.id;
+  var edtaskName = req.body.edtaskName;
+  var edtaskDesc = req.body.edtaskDesc;
+  res.render("/task/edit");
+  task.findByIdAndUpdate(
+    task_id,
+    { taskName: edtaskName },
+    { taskDesc: edtaskDesc },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      }
     }
-  });
+  );
 }
 
 //to view task list
