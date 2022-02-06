@@ -1,0 +1,24 @@
+<style>
+  .list { margin-left: 500px; margin-top: 150px;} th, td { width:150px;
+  text-align:center; padding:5px;} h3 {margin-left: 100px; text-decoration:
+  underline;}
+</style>
+<div class="list">
+  <h3>To-Do List</h3><br /><br />
+  <table>
+    <thead>
+      <tr>
+        <th>Task Name</th>
+        <th>Task Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each list}}
+        <tr>
+          <td>{{this.taskName}}</td>
+          <td>{{this.taskDesc}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
