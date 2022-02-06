@@ -12,8 +12,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   addTask(req, res);
 });
-
-//to add task
+//function to add task
 function addTask(req, res) {
   var Task = new task();
   Task.taskName = req.body.taskName;
@@ -23,6 +22,34 @@ function addTask(req, res) {
       res.redirect("task/list");
     } else {
       console.log("Error while saving " + err);
+    }
+  });
+}
+
+router.get("/list/edit", (req, res) => {
+  res.render("task/edit");
+});
+
+router.post("list/edit", (req, res) => {
+  editTask(req, res);
+});
+// function to update task
+function editTask(req, res) {
+  task.findByIdAndUpdate(req.params.id, (err) => {
+    if (!err) {
+      res.render("/task/edit");
+      var taska = task(req.params.id);
+      taska.taskName = req.body.edtaskName;
+      taska.taskDesc = req.body.edtaskDesc;
+      task.save((err, docs) => {
+        if (!err) {
+          res.redirect("task/list");
+        } else {
+          console.log("Error while saving! " + err);
+        }
+      });
+    } else {
+      console.log("Error while updating! " + err);
     }
   });
 }
@@ -39,27 +66,14 @@ router.get("/list", (req, res) => {
 });
 
 //to delete
-router.get('/delete/:id', (req,res) => {
+router.get("/delete/:id", (req, res) => {
   task.findByIdAndRemove(req.params.id, (err) => {
     if (!err) {
-      res.redirect('/task/list')
+      res.redirect("/task/list");
+    } else {
+      console.log("Error in deletion! " + err);
     }
-    else {
-      console.log('Error in deletion! ' + err)
-    }
-  })
-})
-
-//to edit
-router.get('edit/:id', (req,res) => {
-  task.findByIdAndUpdate(req.params.id, (err) => {
-    if (!err) {
-      res.redirect('/task/list/edit')
-    }
-    else {
-      console.log('Error while updating! ' + err)
-    }
-  })
-})
+  });
+});
 
 module.exports = router;

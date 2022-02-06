@@ -1,0 +1,17 @@
+<style>
+  .form {margin-top: 210px; text-align: center;} h2 {text-decoration:
+  underline;}
+</style>
+<div class="form">
+  <h2>{{viewTitle}}</h2><br />
+
+  <form action="/task" autocomplete="off" method="post">
+    <div class="form-group">
+      <label for="edtaskName">Edited Task name:</label><br />
+      <input required type="text" id="fname" name="edtaskName" /><br />
+      <label for="edtDesc">Edited Task Description:</label><br />
+      <input type="text" id="lname" name="edtaskDesc" /><br /><br />
+    </div>
+    <button type="submit" class="btn btn-danger">confirm</button>
+  </form>
+</div>
