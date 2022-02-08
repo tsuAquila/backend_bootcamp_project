@@ -19,7 +19,7 @@ app.engine(
 );
 app.set("view engine", "hbs");
 
-app.listen(process.env.PORT, () => {
+app.listen(7000, () => {
   console.log("express server started");
 });
 

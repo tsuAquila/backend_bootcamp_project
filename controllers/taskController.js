@@ -27,20 +27,21 @@ function addTask(req, res) {
 }
 
 router.get("/list/edit", (req, res) => {
-  res.render("task/addEdit");
-});
-router.get("/edit/:id", (req, res) => {
-  task.findByIdAndRemove(req.params.id, (err) => {
-    if (!err) {
-      res.redirect("/task/list");
-    } else {
-      console.log("Error in deletion! " + err);
-    }
-  });
+  res.render("task/edit");
 });
 
 router.post("/list/edit", (req, res) => {
   addTask(req, res);
+});
+
+router.get("/edit/:id", (req, res) => {
+  task.findByIdAndRemove(req.params.id, (err) => {
+    if (!err) {
+      res.redirect("/task/list/edit");
+    } else {
+      console.log("Error in deletion! " + err);
+    }
+  });
 });
 
 //to view task list
