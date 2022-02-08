@@ -30,7 +30,7 @@ router.get("/list/edit", (req, res) => {
   res.render("task/edit");
 });
 
-router.post("list/edit", (req, res) => {
+router.post("/list/edit", (req, res) => {
   editTask(req, res);
 });
 // function to update task
