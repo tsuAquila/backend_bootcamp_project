@@ -31,25 +31,20 @@ router.get("/list/edit", (req, res) => {
 });
 
 router.post("/list/edit", (req, res) => {
-  editTask(req, res);
+  edTask(req, res);
 });
-// function to update task
-function editTask(req, res) {
-  console.log(req.params.id);
-  var task_id = req.params.id;
-  var edtaskName = req.body.edtaskName;
-  var edtaskDesc = req.body.edtaskDesc;
-  res.render("/task/edit");
-  task.findByIdAndUpdate(
-    task_id,
-    { taskName: edtaskName },
-    { taskDesc: edtaskDesc },
-    function (err, docs) {
-      if (err) {
-        console.log(err);
-      }
+
+function edTask(req, res) {
+  var Task = new task();
+  Task.taskName = req.body.edtaskName;
+  Task.taskDesc = req.body.edtaskDesc;
+  Task.save((err, docs) => {
+    if (!err) {
+      res.redirect("task/list");
+    } else {
+      console.log("Error while saving " + err);
     }
-  );
+  });
 }
 
 //to view task list
@@ -73,5 +68,17 @@ router.get("/delete/:id", (req, res) => {
     }
   });
 });
+
+function Del (req, res) {
+  task.findByIdAndRemove(req.params.id, (err) => {
+    if (!err) {
+      res.redirect("/task/list");
+    }
+    else {
+      console.log("Error in deletion! " + err);
+  }
+});
+}
+
 
 module.exports = router;
