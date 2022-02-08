@@ -27,25 +27,21 @@ function addTask(req, res) {
 }
 
 router.get("/list/edit", (req, res) => {
-  res.render("task/edit");
+  res.render("task/addEdit");
+});
+router.get("/edit/:id", (req, res) => {
+  task.findByIdAndRemove(req.params.id, (err) => {
+    if (!err) {
+      res.redirect("/task/list");
+    } else {
+      console.log("Error in deletion! " + err);
+    }
+  });
 });
 
 router.post("/list/edit", (req, res) => {
-  edTask(req, res);
+  addTask(req, res);
 });
-
-function edTask(req, res) {
-  var Task = new task();
-  Task.taskName = req.body.edtaskName;
-  Task.taskDesc = req.body.edtaskDesc;
-  Task.save((err, docs) => {
-    if (!err) {
-      res.redirect("task/list");
-    } else {
-      console.log("Error while saving " + err);
-    }
-  });
-}
 
 //to view task list
 router.get("/list", (req, res) => {
@@ -68,17 +64,5 @@ router.get("/delete/:id", (req, res) => {
     }
   });
 });
-
-function Del (req, res) {
-  task.findByIdAndRemove(req.params.id, (err) => {
-    if (!err) {
-      res.redirect("/task/list");
-    }
-    else {
-      console.log("Error in deletion! " + err);
-  }
-});
-}
-
 
 module.exports = router;
